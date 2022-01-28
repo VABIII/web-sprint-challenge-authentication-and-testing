@@ -13,12 +13,15 @@ const getById = id => {
         .first();
 }
 
+const getAll = () => {
+    return db('users')
+}
 
 
 module.exports = {
     addUser,
     getById,
-
+    getAll,
 }
 
 
