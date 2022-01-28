@@ -9,7 +9,19 @@ const checkBody = (req, res, next) => {
     } else { next() }
 }
 
+const checkUsernameExists = async (req, res, next) => {
+    const { username } = req.body;
 
+    try {
+        const user = await db('users').where({ username }).first()
+        if(user){
+            next({status: 401, message: `username taken`})
+        } else { next() }
+    }
+    catch (err) {
+        next(err)
+    }
+};
 
 
 
@@ -24,7 +36,7 @@ const checkBody = (req, res, next) => {
 
 module.exports = {
     checkBody,
-
+    checkUsernameExists,
 }
 
 
