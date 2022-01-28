@@ -8,8 +8,10 @@ const { checkBody } = require('./auth-middleware');
 
 
 router.post('/register', checkBody, (req, res, next) => {
+    const { username, password } = req.body;
+    const hash = bcrypt.hashSync(password, 8);
 
-  Users.addUser(req.body)
+  Users.addUser({username, password: hash})
       .then(user => {
         res.json(user);
       })
