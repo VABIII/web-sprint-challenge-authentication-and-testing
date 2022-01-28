@@ -5,57 +5,20 @@ const addUser = async user => {
     return db('users')
         .where({id})
         .first()
-}
+};
 
 const getById = id => {
     return db('users')
         .where({id})
         .first();
-}
+};
 
 const getAll = () => {
     return db('users')
-}
-
+};
 
 module.exports = {
     addUser,
     getById,
     getAll,
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+};

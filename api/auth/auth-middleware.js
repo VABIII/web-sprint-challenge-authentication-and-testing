@@ -1,17 +1,15 @@
 const db = require('../../data/dbConfig');
-const Users = require('./auth-model');
+
 
 const checkBody = (req, res, next) => {
     const { username, password } = req.body;
-
     if(!username.trim() || !password) {
         next({status: 401, message: `username and password required`});
     } else { next() }
-}
+};
 
 const checkUsernameExists = async (req, res, next) => {
     const { username } = req.body;
-
     try {
         const user = await db('users').where({ username }).first()
         if(user){
@@ -39,49 +37,8 @@ const checkLogin = async (req, res, next) => {
     }
 };
 
-
-
-
-
-
-
-
-
-
 module.exports = {
     checkBody,
     checkUsernameExists,
     checkLogin,
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+};

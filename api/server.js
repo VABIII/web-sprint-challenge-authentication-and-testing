@@ -12,15 +12,12 @@ const server = express();
 server.use(helmet());
 server.use(cors());
 server.use(express.json());
-
 server.use('/api/auth', authRouter);
-server.use('/api/jokes', restrict, jokesRouter); // only logged-in users should have access!
-
+server.use('/api/jokes', restrict, jokesRouter);
 
 server.use('*', (req, res, next) => {
     res.json({message: `That URL doesn't exist`})
 });
-
 
 server.use((err, req, res, next) => { // eslint-disable-line
     res.status(err.status || 500).json({
@@ -28,18 +25,5 @@ server.use((err, req, res, next) => { // eslint-disable-line
         stack: err.stack,
     });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = server;

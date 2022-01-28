@@ -32,7 +32,6 @@ afterAll(async () => {
     await db.destroy()
 })
 
-
 describe('GET /jokes', () => {
     test('returns error status', async () => {
         const res = await request(server).get('/api/jokes')
@@ -69,7 +68,6 @@ describe('POST register/credentials', () => {
     })
 })
 
-
 describe('POST register/name exists', () => {
     test('returns error status if username exists', async () => {
         const user = await request(server).post(`/api/auth/register`).send(user1)
@@ -84,43 +82,3 @@ describe('POST register/name exists', () => {
         expect(res.body.message).toBe(`username taken`)
     })
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
