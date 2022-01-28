@@ -3,10 +3,11 @@ const Users = require('./auth-model');
 const { JWT_SECRET } = require('../secrets');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { checkBody } = require('./auth-middleware');
 
 
 
-router.post('/register', (req, res, next) => {
+router.post('/register', checkBody, (req, res, next) => {
 
   Users.addUser(req.body)
       .then(user => {
