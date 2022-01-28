@@ -1,5 +1,5 @@
 const db = require('../../data/dbConfig');
-const User = require('./auth-model');
+const Users = require('./auth-model');
 
 const checkBody = (req, res, next) => {
     const { username, password } = req.body;
@@ -23,7 +23,21 @@ const checkUsernameExists = async (req, res, next) => {
     }
 };
 
-
+const checkLogin = async (req, res, next) => {
+    const { username } = req.body;
+    try {
+        const user = await db('users').where({username}).first();
+        if(user) {
+            req.user = user;
+            next();
+        } else {
+            next({status: 404, message: `invalid credentials`});
+        }
+    }
+    catch (err) {
+        next(err)
+    }
+};
 
 
 
@@ -37,6 +51,7 @@ const checkUsernameExists = async (req, res, next) => {
 module.exports = {
     checkBody,
     checkUsernameExists,
+    checkLogin,
 }
 
 

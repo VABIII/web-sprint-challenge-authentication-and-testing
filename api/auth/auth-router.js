@@ -3,7 +3,7 @@ const Users = require('./auth-model');
 const { JWT_SECRET } = require('../secrets');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { checkBody, checkUsernameExists } = require('./auth-middleware');
+const { checkBody, checkUsernameExists, checkLogin } = require('./auth-middleware');
 
 
 
@@ -44,8 +44,11 @@ router.post('/register', checkBody, checkUsernameExists,(req, res, next) => {
   */
 });
 
-router.post('/login', (req, res) => {
-  res.end('implement login, please!');
+router.post('/login', checkBody, checkLogin, (req, res, next) => {
+    console.log(req.user)
+
+
+
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
