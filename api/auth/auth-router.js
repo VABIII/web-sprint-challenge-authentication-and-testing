@@ -45,7 +45,16 @@ router.post('/register', checkBody, checkUsernameExists,(req, res, next) => {
 });
 
 router.post('/login', checkBody, checkLogin, (req, res, next) => {
-    console.log(req.user)
+    const { password } = req.body
+    if(bcrypt.compareSync(password, req.user.password)) {
+        const token = makeToken(req.user)
+        res.json({
+            message: `Welcome, ${req.user.username}`,
+            token
+        })
+    } else {
+        next({status: 401, message: `invalid credentials`});
+    }
 
 
 
@@ -74,4 +83,35 @@ router.post('/login', checkBody, checkLogin, (req, res, next) => {
   */
 });
 
+const makeToken = user => {
+    const payload = {
+        subject: user.id,
+        username: user.username,
+    }
+    const options = {
+        expiresIn: '1d',
+    }
+    return jwt.sign(payload, JWT_SECRET, options);
+}
+
+
 module.exports = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
