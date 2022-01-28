@@ -45,7 +45,7 @@ describe('POST /register', () => {
 })
 
 describe('POST /register', () => {
-  test('returns username', async () => {
+  test('user to exist', async () => {
     const res = await  request(server)
         .post('/register')
         .send(user2)
@@ -53,6 +53,24 @@ describe('POST /register', () => {
 
   })
 })
+
+describe('POST /login', () => {
+  test('returns 200 OK status upon login', async () => {
+    const reg = await  request(server)
+        .post('/register')
+        .send(user2)
+    expect(reg.body).toBeTruthy()
+
+    const res = await request(server)
+        .post('/login')
+        .send(user2)
+    expect(res.status).toBe(200)
+
+  })
+})
+
+
+
 
 test('sanity', () => {
   expect(true).toBe(true)
