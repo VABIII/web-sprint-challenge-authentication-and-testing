@@ -15,13 +15,6 @@ const getById = id => {
 
 
 
-
-
-
-
-
-
-
 module.exports = {
     addUser,
     getById,

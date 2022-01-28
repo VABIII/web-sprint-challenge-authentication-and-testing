@@ -56,8 +56,6 @@ router.post('/login', checkBody, checkLogin, (req, res, next) => {
         next({status: 401, message: `invalid credentials`});
     }
 
-
-
   /*
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
@@ -92,7 +90,7 @@ const makeToken = user => {
         expiresIn: '1d',
     }
     return jwt.sign(payload, JWT_SECRET, options);
-}
+};
 
 
 module.exports = router;
